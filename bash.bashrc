@@ -59,8 +59,7 @@ alias wget='wget -c'
 alias df='df -H'
 
 # ssh into hotel machines quickly
-alias lnx='ssh wlodarek@hotellnx119.torolab.ibm.com'
-alias aix='ssh wlodarek@hotelaix13.torolab.ibm.com'
+alias ims1007='ssh db2inst1@ims1007.torolab.ibm.com'
 
 export PS1="\033[38;5;033m\]$\033[39m\]\[$(tput bold)\][\033[38;5;209m\]\@\033[39m\]\[$(tput sgr0)\]][\033[38;5;033m\]\u\033[39m\]@\033[38;5;033m\]\h\033[39m\]] \033[38;5;119m\]\w\033[39m\]
 \033[38;5;033m\]$\033[39m\] \[$(tput sgr0)\]"
