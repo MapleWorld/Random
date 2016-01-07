@@ -1,28 +1,25 @@
-# Cutomized terminal color
-# Folder located in etc/
 
-# To the extent possible under law, the author(s) have dedicated all 
-# copyright and related and neighboring rights to this software to the 
-# public domain worldwide. This software is distributed without any warranty. 
-# You should have received a copy of the CC0 Public Domain Dedication along 
-# with this software. 
-# If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. 
+function gitRepository() {
+repo=`basename \`git rev-parse --show-toplevel\``
+echo "$repo"
+}
 
-# /etc/bash.bashrc: executed by bash(1) for interactive shells.
+function gitBranch() {
+branch=`git rev-parse --abbrev-ref HEAD`
+echo "$branch"
+}
 
-# System-wide bashrc file
 
-# Check that we haven't already been sourced.
-([[ -z ${CYG_SYS_BASHRC} ]] && CYG_SYS_BASHRC="1") || return
-
-# If not running interactively, don't do anything
-[[ "$-" != *i* ]] && return
-
-# Set a default prompt of: user@host, MSYSTEM variable, and current_directory
-#PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h \[\e[35m\]$MSYSTEM\[\e[0m\] \[\e[33m\]\w\[\e[0m\]\n\$ '
-
-# Uncomment to use the terminal colours set in DIR_COLORS
-# eval "$(dircolors -b /etc/DIR_COLORS)"
+function change() {
+if git rev-parse --is-inside-work-tree > /dev/null 2>&1
+then
+export PS1="\033[38;5;033m\]┌──\033[39m\]\[$(tput bold)\][\033[38;5;209m\]\@\033[39m\]]\[$(tput sgr0)\] \033[38;5;033m\]\u\033[39m\]<\033[38;5;033m\]\h\033[39m\]> | \033[38;5;099m\]`gitRepository`\033[39m\] \[$(tput bold)\]\033[38;5;203m\](`gitBranch`)\033[39m\]\[$(tput sgr0)\] | \033[38;5;209m\]\w\033[39m\]
+\033[38;5;033m\]└──▶\033[39m\] \[$(tput sgr0)\]"
+else
+export PS1="\033[38;5;033m\]┌──\033[39m\]\[$(tput bold)\][\033[38;5;209m\]\@\033[39m\]]\[$(tput sgr0)\] \033[38;5;033m\]\u\033[39m\]<\033[38;5;033m\]\h\033[39m\]> | \033[38;5;209m\]\w\033[39m\]
+\033[38;5;033m\]└──▶\033[39m\] \[$(tput sgr0)\]"
+fi
+}
 
 # ls with hidden files
 alias la='ls -a --color=auto'
@@ -59,7 +56,9 @@ alias wget='wget -c'
 alias df='df -H'
 
 # ssh into hotel machines quickly
-alias ims1007='ssh db2inst1@ims1007.torolab.ibm.com'
+alias lnx='ssh wlodarek@hotellnx119.torolab.ibm.com'
+alias aix='ssh wlodarek@hotelaix13.torolab.ibm.com'
 
-export PS1="\033[38;5;033m\]$\033[39m\]\[$(tput bold)\][\033[38;5;209m\]\@\033[39m\]\[$(tput sgr0)\]][\033[38;5;033m\]\u\033[39m\]@\033[38;5;033m\]\h\033[39m\]] \033[38;5;119m\]\w\033[39m\]
-\033[38;5;033m\]$\033[39m\] \[$(tput sgr0)\]"
+export PROMPT_COMMAND=change
+
+alias ims1007='ssh db2inst1@ims1007.torolab.ibm.com'
