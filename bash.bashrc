@@ -55,10 +55,6 @@ alias wget='wget -c'
 # size in GB
 alias df='df -H'
 
-# ssh into hotel machines quickly
-alias lnx='ssh wlodarek@hotellnx119.torolab.ibm.com'
-alias aix='ssh wlodarek@hotelaix13.torolab.ibm.com'
-
 export PROMPT_COMMAND=change
 
 alias ims1007='ssh db2inst1@ims1007.torolab.ibm.com'
